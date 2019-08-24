@@ -1,0 +1,1 @@
+request()->user()->createToken('Token Name', ['scope-1', 'scope-2', 'scope-n'])->accessToken

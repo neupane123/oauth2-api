@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 
 /*
@@ -16,3 +17,27 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/users', function (Request $request){
+	if ($request->user()->tokenCan('view-users')) {
+	        return User::all();
+	    }
+	
+})->middleware('auth:api');
+
+
+Route::Group(['middleware'=>['auth:api', 'scope:view-users']], function(){
+
+		Route::get('/users', function (Request $request){
+			// if ($request->user()->tokenCan('view-users')) {
+			//         return User::all();
+			//     }
+
+			    return User::all();
+			
+		});
+
+
+});
+
+
