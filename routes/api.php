@@ -32,8 +32,11 @@ Route::Group(['middleware'=>['auth:api', 'scope:view-users']], function(){
 			// if ($request->user()->tokenCan('view-users')) {
 			//         return User::all();
 			//     }
-
-			    return User::all();
+				if(Gate::allows('view-users'))
+				{
+			    	return User::all();
+				}
+				return response()->json(['error'=>'sorry, you have no sufficient previledge'], 401);
 			
 		});
 
