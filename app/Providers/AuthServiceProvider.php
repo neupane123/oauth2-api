@@ -32,7 +32,16 @@ class AuthServiceProvider extends ServiceProvider
             'view-users' => 'view all users'
         ]);
 
+        Passport::tokensCan([
+            'view-students' => 'view all students'
+        ]);
+
+
         Gate::define('view-users', function ($user) {
+                return $user->role === 'admin';
+        });
+
+        Gate::define('view-students', function ($user) {
                 return $user->role === 'admin';
         });
     }
