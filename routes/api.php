@@ -45,5 +45,6 @@ Route::Group(['middleware'=>['auth:api', 'scope:view-users']], function(){
 
 
 Route::Resource('/students', 'StudentController');
+Route::Resource('/courses', 'CourseController');
 
 
